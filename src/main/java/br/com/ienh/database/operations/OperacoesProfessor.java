@@ -1,5 +1,6 @@
 package br.com.ienh.database.operations;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -9,8 +10,9 @@ public class OperacoesProfessor {
 
     public static void consultaProfessores() throws Exception {
         String sqlConsulta = "SELECT * FROM professor";
+        Connection conn = DatabaseConnection.getDatabaseConnection().getConnection();
         // Cria um objeto Statement (comando) para enviar consultas ao banco
-        Statement stmt = DatabaseConnection.obterConexao().createStatement();
+        Statement stmt = conn.createStatement();
         // Executa a consulta SQL
         ResultSet rs = stmt.executeQuery(sqlConsulta);
         // Itera sobre os resultados e imprime no console
@@ -36,8 +38,9 @@ public class OperacoesProfessor {
         String sqlUpdate = "INSERT INTO professor (nome, peso, altura, active)" +
                 "VALUES ('" + nome + "', " + peso + ", " + altura + ", 1);";
 
+        Connection conn = DatabaseConnection.getDatabaseConnection().getConnection();
         // Cria um objeto Statement (comando) para enviar consultas ao banco
-        Statement stmt = DatabaseConnection.obterConexao().createStatement();
+        Statement stmt = conn.createStatement();
         // Executa a consulta SQL
         int linhasAfetadas = stmt.executeUpdate(sqlUpdate);
         if (linhasAfetadas == 1) {
